@@ -19,13 +19,9 @@ public class TronClient {
                 if(fromUser.equals("b"))
                     System.exit(0);
             }
-        } catch (UnknownHostException e) {
-            System.err.println("Don't know about host ");
-            System.exit(1);
-        } catch (IOException e) {
-            System.err.println("Couldn't get I/O for the connection to ");
-            e.printStackTrace();
-            System.exit(1);
+        } catch (Exception e) {
+            System.err.println("Serve Offline");
+            System.exit(0);
         }
     }
 }

@@ -75,6 +75,8 @@ public class Renderer extends JFrame {
         panel.setDoubleBuffered(true);
 
         comp = new RendererComponent(width, height);
+        
+        toServer = "0a0a0";
 
         class TimeListener implements ActionListener {
             public void actionPerformed(ActionEvent e){
@@ -131,9 +133,8 @@ public class Renderer extends JFrame {
                         -Math.sin(-xRotation), 0, Math.cos(-xRotation), 0, 
                         0, 0,                    0, 1});
 
-                if(fromServer != null) {
+                if(fromServer != null)
                     comp.updatePositions(fromServer);
-                }
 
                 toServer = -comp.getOriginX() + "a" + -comp.getOriginZ() + "a" + "0";
 
@@ -157,7 +158,8 @@ public class Renderer extends JFrame {
                     yRotation += ySpinAngle;
                 }
 
-                comp.repaint();
+                if(fromServer != null)
+                    comp.repaint();
 
                 frame++;
                 if(System.currentTimeMillis() - startTime >= 1000) {

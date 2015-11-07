@@ -54,7 +54,6 @@ package.numDependencies=15
 package.numTargets=10
 package.showExtends=true
 package.showUses=true
-project.charset=UTF-8
 target1.editor.height=700
 target1.editor.width=900
 target1.editor.x=37
