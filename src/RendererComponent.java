@@ -69,7 +69,7 @@ public class RendererComponent extends JComponent
             g2.drawString("Mouse to turn", -width / 2 + 5, - height / 2 + 34);
             g2.drawString("ESC to exit", -width / 2 + 5, - height / 2 + 51);
             g2.drawString("Users Online: " + usersOnline, width / 2 - 100, - height / 2 + 17);
-            g2.drawString("FPS: " + fps, width / 2 - 50, - height / 2 + 34);
+            g2.drawString("FPS: " + fps, width / 2 - 60, - height / 2 + 34);
 
             shapes.sort(new DistanceComparator());
 
@@ -104,41 +104,50 @@ public class RendererComponent extends JComponent
     public void updatePositions(String fromServer) {
         int mark = fromServer.indexOf("a");
         usersOnline = fromServer.substring(0, mark);
-        int userColorID = Integer.parseInt(fromServer.substring(mark + 1, mark + 2));
-        if(userColorID < 3)
-            user.setColor(BLUE);
-        else if(userColorID < 6)
-            user.setColor(ORANGE);
-        else if(userColorID < 7)
-            user.setColor(PURPLE);
-        else if(userColorID < 8)
-            user.setColor(GREEN);
-        else if(userColorID < 9)
-            user.setColor(WHITE);
-        else
-            user.setColor(YELLOW);
-        fromServer = fromServer.substring(fromServer.indexOf("a") + 2);
-        shapes = new ArrayList<Shape>();
-        while(fromServer.length() > 0) {
-            int comma1 = fromServer.indexOf("a");
-            int comma2 = fromServer.indexOf("a", comma1 + 1);
-            int comma3 = fromServer.indexOf("a", comma2 + 1);
-            int colorID = Integer.parseInt(fromServer.substring(0, 1));
-            if(colorID < 3)
-                shapes.add(new User(BLUE, Integer.parseInt(fromServer.substring(1, comma1)) + getOriginX(), Integer.parseInt(fromServer.substring(comma1 + 1, comma2)) + getOriginZ(), Double.parseDouble(fromServer.substring(comma2 + 1, comma3))));
-            else if(colorID < 6)
-                shapes.add(new User(ORANGE, Integer.parseInt(fromServer.substring(1, comma1)) + getOriginX(), Integer.parseInt(fromServer.substring(comma1 + 1, comma2)) + getOriginZ(), Double.parseDouble(fromServer.substring(comma2 + 1, comma3))));
-            else if(colorID < 7)
-                shapes.add(new User(PURPLE, Integer.parseInt(fromServer.substring(1, comma1)) + getOriginX(), Integer.parseInt(fromServer.substring(comma1 + 1, comma2)) + getOriginZ(), Double.parseDouble(fromServer.substring(comma2 + 1, comma3))));
-            else if(colorID < 8)
-                shapes.add(new User(GREEN, Integer.parseInt(fromServer.substring(1, comma1)) + getOriginX(), Integer.parseInt(fromServer.substring(comma1 + 1, comma2)) + getOriginZ(), Double.parseDouble(fromServer.substring(comma2 + 1, comma3))));
-            else if(colorID < 9)
-                shapes.add(new User(WHITE, Integer.parseInt(fromServer.substring(1, comma1)) + getOriginX(), Integer.parseInt(fromServer.substring(comma1 + 1, comma2)) + getOriginZ(), Double.parseDouble(fromServer.substring(comma2 + 1, comma3))));
+        fromServer = fromServer.substring(mark + 1);
+        if(fromServer.length() > 0) {
+            shapes = new ArrayList<Shape>();
+            int userComma1 = fromServer.indexOf("a");
+            int userComma2 = fromServer.indexOf("a", userComma1 + 1);
+            int userComma3 = fromServer.indexOf("a", userComma2 + 1);
+            int userColorID = Integer.parseInt(fromServer.substring(0, 1));
+            if(userColorID < 3)
+                user.setColor(BLUE);
+            else if(userColorID < 6)
+                user.setColor(ORANGE);
+            else if(userColorID < 7)
+                user.setColor(PURPLE);
+            else if(userColorID < 8)
+                user.setColor(GREEN);
+            else if(userColorID < 9)
+                user.setColor(WHITE);
             else
-                shapes.add(new User(YELLOW, Integer.parseInt(fromServer.substring(1, comma1)) + getOriginX(), Integer.parseInt(fromServer.substring(comma1 + 1, comma2)) + getOriginZ(), Double.parseDouble(fromServer.substring(comma2 + 1, comma3))));
-            fromServer = fromServer.substring(comma3 + 1);
+                user.setColor(YELLOW);
+            user.setX(Integer.parseInt(fromServer.substring(1, userComma1)) + getOriginX());
+            user.setZ(Integer.parseInt(fromServer.substring(userComma1 + 1, userComma2)) + getOriginZ());
+            user.setA(Double.parseDouble(fromServer.substring(userComma2 + 1, userComma3)));
+            fromServer = fromServer.substring(userComma3 + 1);
+            while(fromServer.length() > 0) {
+                int comma1 = fromServer.indexOf("a");
+                int comma2 = fromServer.indexOf("a", comma1 + 1);
+                int comma3 = fromServer.indexOf("a", comma2 + 1);
+                int colorID = Integer.parseInt(fromServer.substring(0, 1));
+                if(colorID < 3)
+                    shapes.add(new User(BLUE, Integer.parseInt(fromServer.substring(1, comma1)) + getOriginX(), Integer.parseInt(fromServer.substring(comma1 + 1, comma2)) + getOriginZ(), Double.parseDouble(fromServer.substring(comma2 + 1, comma3))));
+                else if(colorID < 6)
+                    shapes.add(new User(ORANGE, Integer.parseInt(fromServer.substring(1, comma1)) + getOriginX(), Integer.parseInt(fromServer.substring(comma1 + 1, comma2)) + getOriginZ(), Double.parseDouble(fromServer.substring(comma2 + 1, comma3))));
+                else if(colorID < 7)
+                    shapes.add(new User(PURPLE, Integer.parseInt(fromServer.substring(1, comma1)) + getOriginX(), Integer.parseInt(fromServer.substring(comma1 + 1, comma2)) + getOriginZ(), Double.parseDouble(fromServer.substring(comma2 + 1, comma3))));
+                else if(colorID < 8)
+                    shapes.add(new User(GREEN, Integer.parseInt(fromServer.substring(1, comma1)) + getOriginX(), Integer.parseInt(fromServer.substring(comma1 + 1, comma2)) + getOriginZ(), Double.parseDouble(fromServer.substring(comma2 + 1, comma3))));
+                else if(colorID < 9)
+                    shapes.add(new User(WHITE, Integer.parseInt(fromServer.substring(1, comma1)) + getOriginX(), Integer.parseInt(fromServer.substring(comma1 + 1, comma2)) + getOriginZ(), Double.parseDouble(fromServer.substring(comma2 + 1, comma3))));
+                else
+                    shapes.add(new User(YELLOW, Integer.parseInt(fromServer.substring(1, comma1)) + getOriginX(), Integer.parseInt(fromServer.substring(comma1 + 1, comma2)) + getOriginZ(), Double.parseDouble(fromServer.substring(comma2 + 1, comma3))));
+                fromServer = fromServer.substring(comma3 + 1);
+            }
+            shapes.add(user);
         }
-        shapes.add(user);
     }
 
     public void click() {

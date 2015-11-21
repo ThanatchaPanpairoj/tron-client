@@ -279,7 +279,7 @@ public class Renderer extends JFrame {
         comp.setFocusable(true);
         comp.setVisible(true);
 
-        final int DELAY = 1000 / 60;//60 frames per second
+        final int DELAY = 0;
         Timer t = new Timer(DELAY, new TimeListener());
         t.start();
 
@@ -293,7 +293,6 @@ public class Renderer extends JFrame {
 
         setResizable(false);
         comp.requestFocus();
-
     }
 
     public void updatePositions(String fromServer) {

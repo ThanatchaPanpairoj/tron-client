@@ -113,6 +113,18 @@ public class User extends Shape
         }
     }
 
+    public void setX(int x) {
+        this.x = x;
+    }
+
+    public void setZ(int z) {
+        this.z = z;
+    }
+
+    public void setA(double a) {
+        this.a = a;
+    }
+
     public double getX() {
         return x;
     }

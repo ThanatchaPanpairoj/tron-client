@@ -4,7 +4,7 @@ import java.net.*;
 public class TronClient {
     public static void main(String[] args) throws Exception {
         try {
-            Socket tSocket = new Socket(InetAddress.getByName("68.5.19.136"), 4401);
+            Socket tSocket = new Socket(InetAddress.getByName("68.96.95.22"), 4401);
             PrintWriter out = new PrintWriter(tSocket.getOutputStream(), true);
             BufferedReader in = new BufferedReader(
                     new InputStreamReader(tSocket.getInputStream()));
